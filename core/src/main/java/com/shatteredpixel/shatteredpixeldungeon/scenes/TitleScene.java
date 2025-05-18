@@ -158,41 +158,8 @@ public class TitleScene extends PixelScene {
 
 		StyledButton btnSeedfinder = new StyledButton(GREY_TR, Messages.get(this, "seedfinder_button")){
 			@Override
-			protected void onClick() {
-				ShatteredPixelDungeon.scene()
-						.addToFront(new WndSeedfinderSeedinput(Messages.get(TitleScene.class, "seedfinder_title"),
-								Messages.get(TitleScene.class, "seedfinder_info_text"),
-								SPDSettings.seeditemsText(),
-								100,
-								true,
-								Messages.get(TitleScene.class, "seedfinder_button_yes"),
-								Messages.get(TitleScene.class, "seedfinder_button_no")) {
-							@Override
-							public void onSelect(boolean positive, String seeditems_userInput) {
-								if (positive) {
-									SPDSettings.seeditemsText(seeditems_userInput);
-
-									//activate the seedfinder. this one takes a while
-									String foundSeed = new SeedFinder().find_seed(seeditems_userInput);
-
-									//copy seed to clipboard on success
-									Clipboard clipboard = Gdx.app.getClipboard();
-									clipboard.setContents(foundSeed);
-
-									long seed = DungeonSeed.convertFromText(foundSeed);
-
-									String[] seedfinderOutputLog = new SeedFinder().logSeedItemsSeededRun(seed);
-
-									ShatteredPixelDungeon.scene().addToFront(
-											new WndSeedfinderLog(Icons.get(Icons.BACKPACK),
-													"Found seed " + DungeonSeed.convertToCode(Dungeon.seed),
-													seedfinderOutputLog));
-
-								} else {
-									SPDSettings.seeditemsText("");
-								}
-							}
-						});
+			protected void onClick()  {
+				ShatteredPixelDungeon.switchScene( SeedFinderItemScene.class );
 			}
 		};
 		btnSeedfinder.icon(Icons.get(Icons.MAGNIFY));

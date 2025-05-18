@@ -37,7 +37,7 @@ public class Button extends Component {
 
 	public static float longClick = 0.5f;
 	
-	protected PointerArea hotArea;
+	public PointerArea hotArea;
 	protected Tooltip hoverTip;
 
 	//only one button should be pressed at a time
